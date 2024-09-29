@@ -1,3 +1,7 @@
+# Requirements
+
+- Make sure you are using python 3.10 and above
+
 # Installation
 
 - Clone the repository using `git clone https://github.com/jamesnogra/smollm-test.git`
@@ -7,4 +11,4 @@
 # Running the project
 
 - Run the command `python app.py`
-- Open a browser are go to http://127.0.0.1:5000/ to start
+- Open a browser are go to http://127.0.0.1:5001/ to start

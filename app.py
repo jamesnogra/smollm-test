@@ -2,6 +2,7 @@ from flask import Flask, jsonify, render_template, request
 from model import generate_response
 
 app = Flask(__name__)
+PORT = 5001
 
 # API endpoint
 @app.route('/api/data', methods=['POST'])
@@ -20,4 +21,4 @@ def index():
     return render_template('index.html')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=PORT)
