@@ -14,6 +14,7 @@
             // When the 'send' button is clicked
             $('#send-prompt').click(function () {
                 $('#send-prompt').addClass('disabled')
+                $('#send-prompt').html('Loading some answers...')
                 let prompt = $('#user-prompt').val()
                 $('#user-prompt').val('')
                 $('#response').removeClass('text-danger')
@@ -21,6 +22,7 @@
                     $('#response').text('Please provide a prompt...')
                     $('#response').addClass('text-danger')
                     $('#send-prompt').removeClass('disabled')
+                    $('#send-prompt').html('Send')
                     return
                 }
                 $.ajax({
@@ -30,6 +32,7 @@
                     data: JSON.stringify({ prompt: prompt }), // Send the prompt as JSON
                     success: function (data) {
                         $('#send-prompt').removeClass('disabled')
+                        $('#send-prompt').html('Send')
                         $('#response').text(data.response) // Display the response from the API
                     }
                 })
