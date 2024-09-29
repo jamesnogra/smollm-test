@@ -15,4 +15,4 @@
 # Running the project
 
 - Run the command `python app.py`
-- Open a browser are go to http://127.0.0.1:5001/ to start
+- Open a browser and go to http://127.0.0.1:5001/ to start
