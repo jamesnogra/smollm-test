@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask SmolLM Example</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <script src="{{ url_for('static', filename='js/jquery-3.6.0.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+    <link rel="icon" href="{{ url_for('static', filename='images/icon.png') }}" type="image/x-icon">
+    <script>
+        $(document).ready(function () {
+            $('#send-prompt').click(function () {
+                let prompt = $('#user-prompt').val()
+                $('#user-prompt').val('')
+                $('#response').removeClass('text-danger')
+                if (prompt.length === 0) {
+                    $('#response').text('Please provide a prompt...')
+                    $('#response').addClass('text-danger')
+                    return
+                }
+                $.ajax({
+                    url: '/api/data',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ prompt: prompt }), // Send the prompt as JSON
+                    success: function (data) {
+                        console.log(data)
+                        $('#response').text(data.response) // Display the response from the API
+                    }
+                })
+            })
+        })
+    </script>
+    <style>
+        .main {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            flex-grow: 1;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        html, body {
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="text-center">SmolLM Example (KhantKyaw/T5-small_new_chatbot)</h1>
+        <div class="main text-center">
+            <div id="response" class="mb-3"></div>
+            <input type="text" id="user-prompt" class="form-control mb-3"" placeholder="Enter your prompt here..." value="How are you?">
+            <button id="send-prompt" type="button" class="btn btn-lg btn-success mb-3"">Send</button>
+        </div>
+    </div>
+</body>
+
+</html>
