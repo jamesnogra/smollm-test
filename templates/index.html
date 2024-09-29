@@ -10,16 +10,18 @@
     <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
     <link rel="icon" href="{{ url_for('static', filename='images/icon.png') }}" type="image/x-icon">
     <script>
+        const loadingGif = "{{ url_for('static', filename = 'images/icon.png') }}"
         $(document).ready(function () {
             // When the 'send' button is clicked
             $('#send-prompt').click(function () {
+                $('#response').html('<img src="'+ loadingGif +'" />')
                 $('#send-prompt').addClass('disabled')
                 $('#send-prompt').html('Loading some answers...')
                 let prompt = $('#user-prompt').val()
                 $('#user-prompt').val('')
                 $('#response').removeClass('text-danger')
                 if (prompt.length === 0) {
-                    $('#response').text('Please provide a prompt...')
+                    $('#response').html('Please provide a prompt...')
                     $('#response').addClass('text-danger')
                     $('#send-prompt').removeClass('disabled')
                     $('#send-prompt').html('Send')
@@ -33,7 +35,7 @@
                     success: function (data) {
                         $('#send-prompt').removeClass('disabled')
                         $('#send-prompt').html('Send')
-                        $('#response').text(data.response) // Display the response from the API
+                        $('#response').html(data.response) // Display the response from the API
                     }
                 })
             })
@@ -60,6 +62,9 @@
         html, body {
             height: 100%;
         }
+        #response {
+            font-size: 18px;
+        }
     </style>
 </head>
 
@@ -67,7 +72,7 @@
     <div class="container">
         <h1 class="text-center">SmolLM Example (KhantKyaw/T5-small_new_chatbot)</h1>
         <div class="main text-center">
-            <h3 id="response" class="mb-3"></h3>
+            <div id="response" class="mb-3"></div>
             <input type="text" id="user-prompt" class="form-control mb-3"" placeholder="Enter your prompt here..." value="How are you?">
             <button id="send-prompt" type="button" class="btn btn-lg btn-success mb-3"">Send</button>
         </div>
