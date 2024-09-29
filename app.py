@@ -14,6 +14,7 @@ def api_data():
     if len(prompt) == 0:
         return jsonify({'response': 'Please provide a question!'})
     response = generate_response(prompt)
+    print(f'RESPONSE: {response}')
     return jsonify({'response': response})
 
 # HTML file serving

@@ -12,12 +12,14 @@
     <script>
         $(document).ready(function () {
             $('#send-prompt').click(function () {
+                $('#send-prompt').addClass('disabled')
                 let prompt = $('#user-prompt').val()
                 $('#user-prompt').val('')
                 $('#response').removeClass('text-danger')
                 if (prompt.length === 0) {
                     $('#response').text('Please provide a prompt...')
                     $('#response').addClass('text-danger')
+                    $('#send-prompt').removeClass('disabled')
                     return
                 }
                 $.ajax({
@@ -26,7 +28,7 @@
                     contentType: 'application/json',
                     data: JSON.stringify({ prompt: prompt }), // Send the prompt as JSON
                     success: function (data) {
-                        console.log(data)
+                        $('#send-prompt').removeClass('disabled')
                         $('#response').text(data.response) // Display the response from the API
                     }
                 })
