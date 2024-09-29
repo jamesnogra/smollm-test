@@ -3,6 +3,7 @@ from model import generate_response
 
 app = Flask(__name__)
 PORT = 5001
+DEBUG = False
 
 # API endpoint
 @app.route('/api/data', methods=['POST'])
@@ -21,4 +22,4 @@ def index():
     return render_template('index.html')
 
 if __name__ == '__main__':
-    app.run(debug=True, port=PORT)
+    app.run(debug=DEBUG, host='0.0.0.0', port=PORT)
