@@ -11,9 +11,14 @@
     <link rel="icon" href="{{ url_for('static', filename='images/icon.png') }}" type="image/x-icon">
     <script>
         const loadingGif = "{{ url_for('static', filename = 'images/loading.gif') }}"
+        let loadingAnswer = false
         $(document).ready(function () {
             // When the 'send' button is clicked
             $('#send-prompt').click(function () {
+                if (loadingAnswer) {
+                    return
+                }
+                loadingAnswer = true
                 $('#response').html('<img src="'+ loadingGif +'" />')
                 $('#send-prompt').addClass('disabled')
                 $('#user-prompt').addClass('disabled')
@@ -27,6 +32,7 @@
                     $('#send-prompt').removeClass('disabled')
                     $('#user-prompt').removeClass('disabled')
                     $('#send-prompt').html('Send')
+                    loadingAnswer = false
                     return
                 }
                 $.ajax({
@@ -39,6 +45,7 @@
                         $('#user-prompt').removeClass('disabled')
                         $('#send-prompt').html('Send')
                         $('#response').html(data.response) // Display the response from the API
+                        loadingAnswer = false
                     }
                 })
             })
