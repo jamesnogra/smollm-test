@@ -11,6 +11,7 @@
     <link rel="icon" href="{{ url_for('static', filename='images/icon.png') }}" type="image/x-icon">
     <script>
         $(document).ready(function () {
+            // When the 'send' button is clicked
             $('#send-prompt').click(function () {
                 $('#send-prompt').addClass('disabled')
                 let prompt = $('#user-prompt').val()
@@ -33,6 +34,12 @@
                     }
                 })
             })
+            // Capture the enter key on the input
+            $('#user-prompt').on('keydown', function (event) {
+                if (event.key === "Enter") {
+                    $('#send-prompt').click()
+                }
+            });
         })
     </script>
     <style>
@@ -57,7 +64,7 @@
     <div class="container">
         <h1 class="text-center">SmolLM Example (KhantKyaw/T5-small_new_chatbot)</h1>
         <div class="main text-center">
-            <div id="response" class="mb-3"></div>
+            <h3 id="response" class="mb-3"></h3>
             <input type="text" id="user-prompt" class="form-control mb-3"" placeholder="Enter your prompt here..." value="How are you?">
             <button id="send-prompt" type="button" class="btn btn-lg btn-success mb-3"">Send</button>
         </div>
